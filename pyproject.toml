@@ -1,5 +1,5 @@
 [project]
-name = "template"
+name = "hf-decoder-lm-utils"
 version = "0.1.0"
 description = "Add your description here"
 authors = [
