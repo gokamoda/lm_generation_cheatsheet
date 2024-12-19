@@ -1,0 +1,47 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/pytorch:24.09-py3
+
+%setup
+    echo "start building sif!"
+
+%environment
+    export TZ="Asia/Tokyo"
+    export HOME="/home/kamoda_go"
+    export PWD="/home/kamoda_go"
+
+# %files
+
+
+%post
+    export TZ="Asia/Tokyo"
+    export HOME="/home/kamoda_go"
+    export PWD="/home/kamoda_go"
+    mkdir -p $HOME
+
+    export DEBIAN_FRONTEND=noninteractive
+    ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+    echo "Asia/Tokyo" > /etc/timezone
+
+    # install apt packages
+    apt-get -y update
+    # Set the timezone to Asia/Tokyo
+    apt-get install -y tzdata
+    apt-get install -y lsb-release
+    apt-get install -y tree
+    apt-get install -y tmux
+    apt-get install -y pigz pbzip2
+
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+    apt-get install git-lfs
+
+    pip install -U pip
+    # uv
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    ## After all post processes are executed, the $HOME on the host side and the $HOME on the container side 
+    ## are forcibly mounted when the container is executed.
+
+
+# %runscript
+
+# %startscript
