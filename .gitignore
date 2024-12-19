@@ -3,11 +3,17 @@ __pycache__
 outputs
 *.log
 poetry.lock
+.vscode
 
 .DS_Store
 .ruff_cache
+.pytest_cache
+cache
 
 sftp.json
 uv.lock
 build
 *.egg-info
+
+data
+ruff_cache

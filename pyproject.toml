@@ -8,7 +8,12 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "torch ==2.4.1",
     "rich>=13.9.4",
+    "transformers>=4.47.1",
+    "polars>=1.17.1",
+    "torchtyping>=0.1.5",
+    "accelerate>=1.2.1",
 ]
 
 [tool.uv]
@@ -16,14 +21,33 @@ dev-dependencies = [
     "ipython>=8.29.0",
     "mypy>=1.11.2",
     "pre-commit>=3.8.0",
+    "pytest>=8.3.4",
     "ruff>=0.7.2",
 ]
 
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", marker = "platform_system == 'Windows'" },
+  { index = "pytorch-cu121", marker = "platform_system == 'Linux'" },
+]
+torchvision = [
+  { index = "pytorch-cpu", marker = "platform_system == 'Windows'" },
+  { index = "pytorch-cu121", marker = "platform_system == 'Linux'" },
+]
 
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
 
 [tool.ruff]
 exclude = [".git", ".mypy_cache", ".ruff_cache", ".venv", "third_party"]
-line-length = 160
+line-length = 88
 target-version = "py311"
 
 [tool.ruff.lint]
