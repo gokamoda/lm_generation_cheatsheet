@@ -2,14 +2,15 @@ from dataclasses import dataclass
 from functools import partial
 
 import torch
-from model_with_cache import (
+from torchtyping import TensorType
+
+from hfdecoderutils.model_with_cache import (
     BaseDataCollator,
     BaseInputs,
     BaseInstance,
     BatchGenerationResult,
     DeterministicModelWithCache,
 )
-from torchtyping import TensorType
 
 
 class ModelCallWithCache(DeterministicModelWithCache):

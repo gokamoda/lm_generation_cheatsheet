@@ -11,9 +11,10 @@ from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.generation.utils import GenerateDecoderOnlyOutput
 from transformers.tokenization_utils import BatchEncoding
-from utils import init_logging
-from utils.int_utils import check_power_of_2
-from utils.mytorchtyping import BATCH_SIZE
+
+from .utils import init_logging
+from .utils.int_utils import check_power_of_2
+from .utils.mytorchtyping import BATCH_SIZE
 
 logger = init_logging(__name__, clear=True)
 

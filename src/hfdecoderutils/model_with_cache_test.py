@@ -1,15 +1,16 @@
 from functools import partial
 
-from model_with_cache import (
+from torchtyping import TensorType
+from transformers import AutoTokenizer
+
+from hfdecoderutils.model_with_cache import (
     BaseDataCollator,
     BaseInputs,
     BaseInstance,
     BatchGenerationResult,
     DeterministicModelWithCache,
 )
-from torchtyping import TensorType
-from transformers import AutoTokenizer
-from utils.mytorchtyping import BATCH_SIZE, VOCAB
+from hfdecoderutils.utils.mytorchtyping import BATCH_SIZE, VOCAB
 
 
 def postprocess_simple_generation(
