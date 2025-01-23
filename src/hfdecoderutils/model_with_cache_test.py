@@ -1,8 +1,5 @@
 from functools import partial
 
-from torchtyping import TensorType
-from transformers import AutoTokenizer
-
 from model_with_cache import (
     BaseDataCollator,
     BaseInputs,
@@ -10,6 +7,8 @@ from model_with_cache import (
     BatchGenerationResult,
     DeterministicModelWithCache,
 )
+from torchtyping import TensorType
+from transformers import AutoTokenizer
 from utils.mytorchtyping import BATCH_SIZE, VOCAB
 
 

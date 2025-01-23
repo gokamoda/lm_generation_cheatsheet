@@ -2,8 +2,6 @@ from dataclasses import dataclass
 from functools import partial
 
 import torch
-from torchtyping import TensorType
-
 from model_with_cache import (
     BaseDataCollator,
     BaseInputs,
@@ -11,6 +9,7 @@ from model_with_cache import (
     BatchGenerationResult,
     DeterministicModelWithCache,
 )
+from torchtyping import TensorType
 
 
 class ModelCallWithCache(DeterministicModelWithCache):
