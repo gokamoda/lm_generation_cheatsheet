@@ -9,18 +9,12 @@ readme = "README.md"
 requires-python = ">=3.10"
 
 dependencies = [
-    "torch >=2.4.1",
     "rich>=13.9.4",
     "transformers>=4.47.1",
     "polars>=1.17.1",
     "torchtyping>=0.1.5",
     "accelerate>=1.2.1",
 ]
-
-
-
-[tool.setuptools]
-package-dir = {"" = "src"}
 
 
 [tool.uv]
@@ -32,7 +26,56 @@ dev-dependencies = [
     "ruff>=0.7.2",
 ]
 
+conflicts = [
+  [
+    { extra = "default" },
+    { extra = "cpu" },
+    { extra = "cu118" },
+    { extra = "cu121" },
+  ],
+]
 
+[project.optional-dependencies]
+default = [
+  "torch==2.4.1",
+]
+cpu = [
+  "torch==2.4.1",
+]
+cu118 = [
+  "torch==2.4.1",
+]
+cu121 = [
+  "torch==2.4.1",
+]
+
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu118", extra = "cu118" },
+  { index = "pytorch-cu121", extra = "cu121" },
+]
+
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+testpaths = ["src",]
 
 [tool.ruff]
 exclude = [".git", ".mypy_cache", ".ruff_cache", ".venv", "third_party"]

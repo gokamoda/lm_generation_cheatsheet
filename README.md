@@ -50,3 +50,27 @@
         -v $(pwd)/ruff.sh:/app/ruff.sh \
         project:lastest
     ```
+
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", marker = "platform_system == 'Windows'" },
+  { index = "pytorch-cu121", marker = "platform_system == 'Linux'" },
+]
+torchvision = [
+  { index = "pytorch-cpu", marker = "platform_system == 'Windows'" },
+  { index = "pytorch-cu121", marker = "platform_system == 'Linux'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
+
+
+uv sync --extra cu118 --no-dev

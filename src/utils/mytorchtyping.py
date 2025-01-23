@@ -1,0 +1,2 @@
+BATCH_SIZE = None
+VOCAB = None
