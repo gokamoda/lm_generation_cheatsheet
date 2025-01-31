@@ -48,6 +48,10 @@ def test_model_with_cache():
         " Paris is the capital of",
         " Berlin is the capital of",
         " Berlin is the capital of",
+        " A is the capital of",
+        " B is the capital of",
+        " C is the capital of",
+        " D is the capital of",
     ]
 
     result = model.run_inference(
@@ -61,7 +65,7 @@ def test_model_with_cache():
         },
         inputs=[BaseInputs(prompt=prompt) for prompt in prompts],
         collator=BaseDataCollator(model.tokenizer),
-        batch_size=1,
+        batch_size=2,
         post_procecss_fn=partial(postprocess_simple_generation, model.tokenizer),
     )
     print(result)
