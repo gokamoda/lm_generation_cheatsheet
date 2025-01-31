@@ -344,8 +344,9 @@ class DeterministicModelWithCache:
                             batch_result_generator.close()
                             break
 
-            # except torch.OutOfMemoryError:
             except torch.cuda.OutOfMemoryError:
+                batch_result_generator.close()
+
                 if batch_size == 1:
                     raise Exception("Batch size is 1 and still out of memory") from None
                 if check_power_of_2(batch_size):
