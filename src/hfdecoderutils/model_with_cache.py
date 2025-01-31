@@ -1,5 +1,6 @@
 import random
 from dataclasses import dataclass
+from functools import partial
 from pathlib import Path
 from typing import Any, Generator
 
@@ -7,7 +8,7 @@ import polars as pl
 import torch
 from torch.utils.data import DataLoader, Dataset
 from torchtyping import TensorType
-from tqdm import tqdm
+from tqdm import tqdm as std_tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.generation.utils import GenerateDecoderOnlyOutput
 from transformers.tokenization_utils import BatchEncoding
@@ -15,6 +16,8 @@ from transformers.tokenization_utils import BatchEncoding
 from .utils import init_logging
 from .utils.int_utils import check_power_of_2
 from .utils.mytorchtyping import BATCH_SIZE
+
+tqdm = partial(std_tqdm, dynamic_ncols=True)
 
 logger = init_logging(__name__, clear=True)
 
