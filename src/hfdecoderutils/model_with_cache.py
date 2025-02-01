@@ -343,7 +343,8 @@ class DeterministicModelWithCache:
                     )
                     if batch_id == 0:
                         max_tokens = int(num_input_tokens.max())
-                    elif check_power_of_2(batch_size):
+
+                    if check_power_of_2(batch_size):
                         if int(num_input_tokens.min()) * 1.5 < max_tokens:
                             batch_size = int(batch_size * 1.5)
                             batch_result_generator.close()
