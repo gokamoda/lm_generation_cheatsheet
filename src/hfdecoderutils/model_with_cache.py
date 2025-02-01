@@ -157,7 +157,7 @@ class DeterministicModelWithCache:
             )
             self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
 
-    def load_model(self):
+    def load_model(self, tensor_type=None):
         if torch.cuda.is_available():
             if torch.cuda.device_count() > 1:
                 self.model = AutoModelForCausalLM.from_pretrained(
@@ -311,6 +311,9 @@ class DeterministicModelWithCache:
         ), "Starting batch size must be a power of 2"
 
         batch_size = starting_batch_size
+        if not generation_kwargs["do_sample"]:
+            self.model.generation_config.temperature = None
+            self.model.generation_config.top_p = None
 
         inputs = self.set_instance_ids(inputs)
         pop_offsets = torch.zeros(len(inputs), dtype=torch.int32)
