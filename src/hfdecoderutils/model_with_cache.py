@@ -343,10 +343,10 @@ class DeterministicModelWithCache:
                             batch_size = int(batch_size * 1.5)
                             batch_result_generator.close()
                             break
-                        elif int(num_input_tokens.min()) / 1.5 * 2 < max_tokens:
-                            batch_size = int(batch_size / 1.5 * 2)
-                            batch_result_generator.close()
-                            break
+                    elif int(num_input_tokens.min()) / 1.5 * 2 < max_tokens:
+                        batch_size = int(batch_size / 1.5 * 2)
+                        batch_result_generator.close()
+                        break
 
             except torch.cuda.OutOfMemoryError:
                 batch_result_generator.close()
