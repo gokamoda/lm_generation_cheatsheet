@@ -247,6 +247,7 @@ class DeterministicModelWithCache:
         return new_results_df
 
     def model_generate(self, model_input_kwargs, generation_kwargs):
+        model_input_kwargs = model_input_kwargs.to(self.model.device)
         return self.model.generate(**model_input_kwargs, **generation_kwargs)
 
     def batch_generate(
