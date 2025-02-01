@@ -274,14 +274,21 @@ class DeterministicModelWithCache:
 
         with torch.no_grad():
             for _inputs, _model_inputs in tqdm(data_loader):
-                outputs = self.model_generate(_model_inputs, generation_kwargs)
+                for _ in range(10):
+                    try:
+                        outputs = self.model_generate(_model_inputs, generation_kwargs)
 
-                yield BatchGenerationResult(
-                    inputs=_inputs,
-                    model_inputs=_model_inputs,
-                    outputs=outputs,
-                    generation_kwargs=generation_kwargs,
-                )
+                        yield BatchGenerationResult(
+                            inputs=_inputs,
+                            model_inputs=_model_inputs,
+                            outputs=outputs,
+                            generation_kwargs=generation_kwargs,
+                        )
+                        break
+                    except RuntimeError:
+                        logger.error(
+                            "sampling error. Trying again with smaller batch size"
+                        )
 
     def set_instance_ids(self, inputs: list[BaseInputs]):
         for i, _input in enumerate(inputs):
