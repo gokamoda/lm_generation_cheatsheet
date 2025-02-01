@@ -334,6 +334,8 @@ class DeterministicModelWithCache:
                         pop_offsets[_input.instance_id + 1 :] += 1
 
                     if len(inputs) == 0:
+                        batch_result_generator.close()
+                        torch.cuda.empty_cache()
                         return
 
                     num_input_tokens: TensorType[BATCH_SIZE] = (
@@ -361,6 +363,9 @@ class DeterministicModelWithCache:
                     batch_size = int(batch_size // 2 * 1.5)
                 else:
                     batch_size = int(batch_size // 1.5)
+
+        batch_result_generator.close()
+        torch.cuda.empty_cache()
 
     def run_inference(
         self,
