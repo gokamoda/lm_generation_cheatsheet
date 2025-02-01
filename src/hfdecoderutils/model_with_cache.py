@@ -318,9 +318,10 @@ class DeterministicModelWithCache:
         ), "Starting batch size must be a power of 2"
 
         batch_size = starting_batch_size
-        if not generation_kwargs["do_sample"]:
-            self.model.generation_config.temperature = None
-            self.model.generation_config.top_p = None
+        if "do_sample" in generation_kwargs:
+            if not generation_kwargs["do_sample"]:
+                self.model.generation_config.temperature = None
+                self.model.generation_config.top_p = None
 
         inputs = self.set_instance_ids(inputs)
         pop_offsets = torch.zeros(len(inputs), dtype=torch.int32)
