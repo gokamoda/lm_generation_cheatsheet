@@ -285,9 +285,11 @@ class DeterministicModelWithCache:
                             generation_kwargs=generation_kwargs,
                         )
                         break
-                    except RuntimeError:
+                    except torch.cuda.OutOfMemoryError as e:
+                        raise e
+                    except RuntimeError as e:
                         logger.error(
-                            "sampling error. Trying again with smaller batch size"
+                            f"{e}\nsampling error. Trying again with smaller batch size"
                         )
 
     def set_instance_ids(self, inputs: list[BaseInputs]):
