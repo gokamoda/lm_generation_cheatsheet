@@ -170,6 +170,8 @@ class DeterministicModelWithCache:
         else:
             self.model = AutoModelForCausalLM.from_pretrained(self.model_name_or_path)
 
+        self.model.eval()
+
     def get_precomputed_results(
         self,
         inputs: list[BaseInputs],
