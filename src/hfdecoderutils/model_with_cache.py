@@ -1,3 +1,4 @@
+import os
 import random
 from dataclasses import dataclass
 from functools import partial
@@ -100,9 +101,14 @@ class BatchGenerationResult:
 
 
 def get_generation_cache_dir(model_name_or_path: str) -> Path:
-    directory = Path("./work").joinpath(
-        f"generation_cache/{model_name_or_path.split('/')[-1]}"
-    )
+    if os.getenv("GENERATION_CACHE_DIR"):
+        directory = Path(os.getenv("GENERATION_CACHE_DIR"))
+    else:
+        logger.info(
+            "GENERATION_CACHE_DIR not set. Using `./generation_cache` as cache directory"
+        )
+        directory = Path("./generation_cache")
+    directory = directory.joinpath(f"{model_name_or_path.split('/')[-1]}")
     directory.mkdir(parents=True, exist_ok=True)
     return directory
 
