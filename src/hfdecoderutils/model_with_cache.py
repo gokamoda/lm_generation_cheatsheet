@@ -574,12 +574,15 @@ class DeterministicModelWithCache:
 
         return result
 
-    def create_random_sequences(self, length: int, num_sequences: int) -> list[str]:
-        ids = list(self.tokenizer.get_vocab().values())
+    def create_random_sequences(
+        self, length: int, num_sequences: int, seed=42
+    ) -> list[str]:
+        ids = sorted(list(self.tokenizer.get_vocab().values()))
         sequences = []
 
         for i in range(num_sequences):
-            random.seed(42 + i)
+            if seed:
+                random.seed(seed + i)
             sequences.append(
                 self.tokenizer.decode(
                     random.choices(
